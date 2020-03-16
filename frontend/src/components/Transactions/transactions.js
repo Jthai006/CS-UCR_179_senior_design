@@ -110,26 +110,25 @@ export default class Transactions extends React.Component {
 
     render() {
         return (
-            <Container fluid="true">
-                <Row>
-                    <Col className="bg-white" lg={{ span: 8, offset: 2 }} md={{ span: 10, offset: 1 }} sm={{ span: 12, offset: 0 }}>
+
+                <div>
                         <div class="btn-group left-1">
-                            <button type="button" class="btn btn-primary">Days</button>
-                            <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <button type="button" class="btn btn-primary mt3 mb3">Days</button>
+                            <button type="button" class="mt3 mb3 btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="sr-only">Toggle Dropdown</span>
                             </button>
-                            <div class="dropdown-menu">
+                            <div class="dropdown-menu mt3 mb3">
                                 <a class="dropdown-item" onClick={() => this.onSelect(30)}>30</a>
                                 <a class="dropdown-item" onClick={() => this.onSelect(60)}>60</a>
                                 <a class="dropdown-item" onClick={() => this.onSelect(90)}>90</a>
                             </div>
                         </div>
-                        <div class="btn-group left-2">
+                        <div class="btn-group left-2 mt3 mb3">
                             <button type="button" class="btn btn-primary">Categories</button>
                             <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="sr-only">Toggle Dropdown</span>
                             </button>
-                            <div class="dropdown-menu">
+                            <div class="dropdown-menu mt3 mb3">
                                 {Object.keys(this.state.categories).map(key => {
                                     return (
                                         <a class="dropdown-item" onClick={() => this.onCats({ key })}>{key}</a>
@@ -138,10 +137,8 @@ export default class Transactions extends React.Component {
                                 <a class="dropdown-item" onClick={() => this.onCats("none")}>None</a>
                             </div>
                         </div>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col className="bg-white" lg={{ span: 8, offset: 2 }} md={{ span: 10, offset: 1 }} sm={{ span: 12, offset: 0 }}>
+                    
+                   
                         <table class="table">
                             <thead>
                                 <tr>
@@ -183,11 +180,7 @@ export default class Transactions extends React.Component {
                             </tbody>
                         </table>
 
-                    </Col>
-                </Row>
-            </Container>
-
-
+                    </div>
         )
     }
 }
