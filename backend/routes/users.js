@@ -8,8 +8,8 @@ router.route('/').get((req, res) => {
   User.find()
     .then(users => res.json(users))
     .catch(err => res.status(400).json('Errors: ' + err));
-    const hash = bcrypt.hashSync("a", 10);
-    console.log(hash);
+  const hash = bcrypt.hashSync("a", 10);
+  console.log(hash);
 });
 
 router.route('/add').post((req, res) => {
@@ -65,8 +65,8 @@ router.route('/update/password').post((req, res) => {
         if (result) {
           user.password = newpass;
           user.save()
-          .then(() => res.json(user))
-          .catch(err => res.status(400).json('Error: ' + err));
+            .then(() => res.json(user))
+            .catch(err => res.status(400).json('Error: ' + err));
         }
         else {
           res.send("1");
@@ -82,16 +82,30 @@ router.route('/update/email').post((req, res) => {
   const newemail = req.body.newemail;
   User.findById(id)
     .then(user => {
-      if(curremail == user.email){
+      if (curremail == user.email) {
         console.log("changing email")
         user.email = newemail;
         user.save()
+          .then(() => res.json(user))
+          .catch(err => res.status(400).json('Error: ' + err));
+      }
+      else {
+        res.send("1");
+      }
+    })
+    .catch(err => res.status(400).json('Errors: ' + err));
+});
+
+router.route('/update/goal').post((req, res) => {
+  const id = req.body.id;
+  const newgoal = req.body.newgoal;
+  User.findById(id)
+    .then(user => {
+      console.log("changing email")
+      user.goal = newgoal;
+      user.save()
         .then(() => res.json(user))
         .catch(err => res.status(400).json('Error: ' + err));
-      }
-      else{
-        res.send("1");
-      } 
     })
     .catch(err => res.status(400).json('Errors: ' + err));
 });

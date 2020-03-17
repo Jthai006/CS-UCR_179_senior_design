@@ -21,6 +21,19 @@ var client = new plaid.Client(
     plaid.environments[PLAID_ENV],
     { version: "2019-05-29", clientApp: "Plaid Quickstart" }
 );
+const unlinkAccount = (req, res) => {
+    // First, receive the public token and set it to a variable
+    let accessToken = req.body.accessToken;
+    // Second, exchange the public token for an access token
+    client.removeItem(accessToken, (err, result) => {
+        // Handle err
+        // The Item has been removed and the
+        // access token is now invalid
+        const isRemoved = result.removed;
+        res.send(isRemoved);
+    });
+
+};
 
 const receivePublicToken = (req, res) => {
     // First, receive the public token and set it to a variable
@@ -55,7 +68,13 @@ const getTransactions = (req, res) => {
             offset: 0
         },
         function (error, transactionsResponse) {
-            res.json({ transactions: transactionsResponse.transactions });
+            if (transactionsResponse.transactions.length > 0) {
+                res.json({ transactions: transactionsResponse.transactions });
+            }
+            else {
+                res.json({ transactions: [] });
+
+            }
             // TRANSACTIONS LOGGED BELOW! 
             // They will show up in the terminal that you are running nodemon in.
             console.log("backend plaid transactions");
@@ -93,5 +112,6 @@ const getProgressTransactions = (req, res) => {
 module.exports = {
     receivePublicToken,
     getTransactions,
-    getProgressTransactions
+    getProgressTransactions,
+    unlinkAccount
 };
